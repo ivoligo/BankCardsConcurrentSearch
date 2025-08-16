@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
 public class TestDataGenerator {
 
     private static final int CLIENTS_PER_BANK = 5;
-    private static final List<String> CLIENT_NAMES = List.of(
+    public static final List<String> CLIENT_NAMES = List.of(
             "Александр Петров", "Михаил Иванов", "Дмитрий Смирнов",
             "Сергей Кузнецов", "Андрей Попов", "Иван Васильев", "Алексей Соколов",
             "Владимир Николаев", "Евгений Фёдоров", "Роман Морозов", "Максим Волков",
@@ -58,6 +58,7 @@ public class TestDataGenerator {
         List<String> clientNames = new ArrayList<>(CLIENT_NAMES);
         Collections.shuffle(clientNames);
         clientNames = clientNames.subList(0, CLIENTS_PER_BANK);
+        clientNames.add("Александр Петров"); // id = 367938
 
         List<Client> clients = clientNames.stream()
                 .map(TestDataGenerator::createOrGetClient)
@@ -144,7 +145,7 @@ public class TestDataGenerator {
      * Генерирует номер банковской карты.
      *
      * @return номер карты в формате "XXXX XXXX XXXX XXXX",
-     *         где X - цифра от 0 до 9
+     * где X - цифра от 0 до 9
      */
     private static String generateCardNumber() {
         return String.format("%04d %04d %04d %04d",
