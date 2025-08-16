@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
 public class TestDataGenerator {
 
     private static final int CLIENTS_PER_BANK = 5;
-    public static final List<String> CLIENT_NAMES = List.of(
+    private static final List<String> CLIENT_NAMES = List.of(
             "Александр Петров", "Михаил Иванов", "Дмитрий Смирнов",
             "Сергей Кузнецов", "Андрей Попов", "Иван Васильев", "Алексей Соколов",
             "Владимир Николаев", "Евгений Фёдоров", "Роман Морозов", "Максим Волков",
