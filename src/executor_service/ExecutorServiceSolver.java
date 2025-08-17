@@ -14,6 +14,13 @@ public class ExecutorServiceSolver {
 
     public static void runExecutiveService(List<TerritoryBank> banks, long clientId) {
 
+        List<Card> activeClientCards = getActiveClientCards(banks, clientId);
+        StaticUtils.printResult(activeClientCards, clientId);
+    }
+
+    private static List<Card> getActiveClientCards(List<TerritoryBank> banks, long clientId) {
+
+        List<Card> activeClientCards = new ArrayList<>();
         try (ExecutorService executor = Executors.newFixedThreadPool(10)) {
             List<Future<List<Card>>> futures = new ArrayList<>();
 
@@ -22,7 +29,6 @@ public class ExecutorServiceSolver {
                         bank.findClientCards(clientId)));
             }
 
-            List<Card> activeClientCards = new ArrayList<>();
             for (Future<List<Card>> future : futures) {
                 try {
                     activeClientCards.addAll(future.get());
@@ -30,8 +36,7 @@ public class ExecutorServiceSolver {
                     System.err.println("Ошибка: " + e.getMessage());
                 }
             }
-
-            StaticUtils.printResult(activeClientCards, clientId);
         }
+        return activeClientCards;
     }
 }

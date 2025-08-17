@@ -1,9 +1,9 @@
 package completable_future;
 
-import common.utils.StaticUtils;
 import common.exception.TimeoutGetCardException;
 import common.model.Card;
 import common.model.TerritoryBank;
+import common.utils.StaticUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,15 +13,19 @@ public class CompletableFutureSolver {
 
     public static void runCompletableFuture(List<TerritoryBank> banks, long clientId) {
 
-        List<Card> activeClientCards = banks.stream()
+        List<Card> activeClientCards = getActiveClientCards(banks, clientId);
+        StaticUtils.printResult(activeClientCards, clientId);
+    }
+
+    private static List<Card> getActiveClientCards(List<TerritoryBank> banks, long clientId) {
+
+        return banks.stream()
                 .map(bank -> fetchCardsAsync(bank, clientId))
                 .toList()
                 .stream()
                 .map(CompletableFuture::join)
                 .flatMap(List::stream)
                 .toList();
-
-        StaticUtils.printResult(activeClientCards, clientId);
     }
 
     private static CompletableFuture<List<Card>> fetchCardsAsync(TerritoryBank bank, long clientId) {
