@@ -38,8 +38,11 @@ public class BankRequestTask extends RecursiveTask<List<Card>> {
             TerritoryBank bank = banks.get(i);
             try {
                 result.addAll(bank.findClientCards(clientId));
-            } catch (TimeoutGetCardException | InterruptedException e) {
-                return Collections.<Card>emptyList();
+            } catch (TimeoutGetCardException ex) {
+                System.err.println("Ошибка: " + ex.getMessage());
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+                System.err.println("Запрос прерван");
             }
         }
         return result;
