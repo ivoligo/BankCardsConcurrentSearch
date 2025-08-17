@@ -2,6 +2,7 @@ import common.data.TestDataGenerator;
 import common.model.TerritoryBank;
 import completable_future.CompletableFutureSolver;
 import executor_service.ExecutorServiceSolver;
+import fork_join.ForkJoinSolver;
 
 import java.util.List;
 
@@ -19,5 +20,8 @@ public class Main {
 
         System.out.println("\nCompletableFuture:");
         CompletableFutureSolver.runCompletableFuture(banks, TARGET_CLIENT_ID);
+
+        System.out.println("\nFork / Join:");
+        ForkJoinSolver.runForkJoin(banks, TARGET_CLIENT_ID);
     }
 }

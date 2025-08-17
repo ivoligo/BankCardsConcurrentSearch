@@ -29,7 +29,6 @@ public class TerritoryBank {
         if (delay > Constants.WAITING_TIME)
             throw new TimeoutGetCardException("Превышено время ожидания." + name + " не отвечает...");
         Thread.sleep(delay);
-
         return clients.stream()
                 .filter(client -> client.id() == clientId)
                 .findFirst()

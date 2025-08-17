@@ -2,6 +2,7 @@ package executor_service;
 
 import common.model.Card;
 import common.model.TerritoryBank;
+import common.utils.StaticUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,20 +22,16 @@ public class ExecutorServiceSolver {
                         bank.findClientCards(clientId)));
             }
 
-            List<Card> activeCards = new ArrayList<>();
+            List<Card> activeClientCards = new ArrayList<>();
             for (Future<List<Card>> future : futures) {
                 try {
-                    activeCards.addAll(future.get());
+                    activeClientCards.addAll(future.get());
                 } catch (Exception e) {
                     System.err.println("Ошибка: " + e.getMessage());
                 }
             }
 
-            System.out.println("\nНайдено активных карт у клиента " + clientId + ": " + activeCards.size());
-            System.out.println("Номера карт:");
-            activeCards.forEach(card ->
-                    System.out.println(card.number())
-            );
+            StaticUtils.printResult(activeClientCards, clientId);
         }
     }
 }
