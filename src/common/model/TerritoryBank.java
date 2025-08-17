@@ -21,14 +21,14 @@ public class TerritoryBank {
     }
 
 
-    public List<Card> findClientCards(long clientId) throws InterruptedException {
+    public List<Card> findClientCards(long clientId) throws TimeoutGetCardException, InterruptedException {
 
 //        // @todo: сделать рандомную задержку и выкидываем исключение, если больше 60 секунд
-//        Random random = new Random();
-//        int delay = random.nextInt(100_000);
-//        if (delay > Constants.WAITING_TIME)
-//            throw new TimeoutGetCardException("Превышено время ожидания. Банк не отвечает...");
-//        Thread.sleep(delay);
+        Random random = new Random();
+        int delay = random.nextInt(100_000);
+        if (delay > Constants.WAITING_TIME)
+            throw new TimeoutGetCardException("Превышено время ожидания." + name + " не отвечает...");
+        Thread.sleep(delay);
 
         return clients.stream()
                 .filter(client -> client.id() == clientId)
@@ -47,5 +47,9 @@ public class TerritoryBank {
 
     public String getName() {
         return name;
+    }
+
+    public List<Client> getClients() {
+        return clients;
     }
 }

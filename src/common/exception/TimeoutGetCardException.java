@@ -1,6 +1,6 @@
 package common.exception;
 
-public class TimeoutGetCardException extends RuntimeException{
+public class TimeoutGetCardException extends Exception{
 
     public TimeoutGetCardException(String message) {
         super(message);
